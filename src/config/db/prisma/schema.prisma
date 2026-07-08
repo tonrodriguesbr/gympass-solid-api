@@ -13,7 +13,27 @@ model User {
   email        String   @unique
   passwordHash String   @map("password_hash")
   createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
 
   @@map("users")
+}
+
+model CheckIn {
+  id          String    @id @default(uuid())
+  userId      String    @map("user_id")
+  validatedAt DateTime? @map("validated_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  @@map("check_ins")
+}
+
+model Gym {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  phone       String?  @unique
+  latitude    Decimal
+  longitude   Decimal
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("gyms")
 }
