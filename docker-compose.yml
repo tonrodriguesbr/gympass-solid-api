@@ -1,0 +1,14 @@
+services:
+  gympass-api-pg:
+    image: bitnami/postgresql:latest
+    ports:
+      - "5436:5432"
+    environment:
+      - POSTGRESQL_USERNAME=admin
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DATABASE=gympass_db
+    volumes:
+      - gympass-api-pg-data:/var/lib/postgresql/data
+
+volumes:
+  gympass-api-pg-data:
