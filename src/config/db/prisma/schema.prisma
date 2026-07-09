@@ -14,14 +14,20 @@ model User {
   passwordHash String   @map("password_hash")
   createdAt    DateTime @default(now()) @map("created_at")
 
+  checkIns CheckIn[]
+
   @@map("users")
 }
 
 model CheckIn {
   id          String    @id @default(uuid())
   userId      String    @map("user_id")
+  gymId       String    @map("gym_id")
   validatedAt DateTime? @map("validated_at")
   createdAt   DateTime  @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id])
+  gym  Gym  @relation(fields: [gymId], references: [id])
 
   @@map("check_ins")
 }
@@ -34,6 +40,8 @@ model Gym {
   latitude    Decimal
   longitude   Decimal
   createdAt   DateTime @default(now()) @map("created_at")
+
+  checkIns CheckIn[]
 
   @@map("gyms")
 }
