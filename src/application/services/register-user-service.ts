@@ -1,4 +1,5 @@
 import { hash } from "bcryptjs";
+import { PrismaUsersRepository } from "@/http/repositories/prisma-users-repository";
 import { prisma } from "@/lib/prisma";
 
 interface RegisterUserServiceRequest {
@@ -8,6 +9,8 @@ interface RegisterUserServiceRequest {
 }
 
 export async function registerUserService({ name, email, password }: RegisterUserServiceRequest) {
+  const prismaUsersRepository = new PrismaUsersRepository();
+
   const userWithSameEmail = await prisma.user.findUnique({
     where: { email },
   });
@@ -17,8 +20,11 @@ export async function registerUserService({ name, email, password }: RegisterUse
   }
 
   const passwordHash = await hash(password, 6);
-  const user = await prisma.user.create({
-    data: { name, email, passwordHash },
+
+  const user = await prismaUsersRepository.create({
+    name,
+    email,
+    passwordHash,
   });
 
   const formattedUser = {
