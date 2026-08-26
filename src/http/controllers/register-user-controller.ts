@@ -1,7 +1,7 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 import { RegisterUserService } from "@/application/services/register-user-service";
-import { PrismaUsersRepository } from "@/http/repositories/prisma-users-repository";
+import { PrismaUsersRepository } from "@/http/repositories/prisma/prisma-users-repository";
 
 export async function registerUserController(request: FastifyRequest, reply: FastifyReply) {
   try {
