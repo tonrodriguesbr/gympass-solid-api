@@ -1,6 +1,6 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
-import { registerUserService } from "@/application/services/register-user-service";
+import { RegisterUserService } from "@/application/services/register-user-service";
 
 export async function registerUserController(request: FastifyRequest, reply: FastifyReply) {
   try {
@@ -12,7 +12,7 @@ export async function registerUserController(request: FastifyRequest, reply: Fas
 
     const { name, email, password } = createUserBodySchema.parse(request.body);
 
-    const { user } = await registerUserService({ name, email, password });
+    const { user } = await RegisterUserService.execute({ name, email, password });
 
     return reply.status(201).send(user);
   } catch (error) {
