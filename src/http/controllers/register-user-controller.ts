@@ -24,6 +24,6 @@ export async function registerUserController(request: FastifyRequest, reply: Fas
       return reply.status(409).send({ message: error.message });
     }
 
-    reply.status(500).send();
+    throw error;
   }
 }
