@@ -1,5 +1,6 @@
 import { hash } from "bcryptjs";
 import type { UsersRepository } from "@/application/repositories/users-repository";
+import type { UserContract } from "@/contracts/user-contract";
 import { UserAlreadyExistsError } from "./errors/user-already-exists-error";
 
 interface RegisterUserServiceRequest {
@@ -9,12 +10,7 @@ interface RegisterUserServiceRequest {
 }
 
 interface RegisterUserServiceResponse {
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    createdAt: Date;
-  };
+  user: UserContract;
 }
 
 export class RegisterUserService {
@@ -35,13 +31,6 @@ export class RegisterUserService {
       passwordHash,
     });
 
-    const formattedUser = {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      createdAt: user.createdAt,
-    };
-
-    return { user: formattedUser };
+    return { user };
   }
 }
