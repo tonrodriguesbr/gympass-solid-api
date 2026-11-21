@@ -3,20 +3,20 @@ import type { UsersRepository } from "@/application/repositories/users-repositor
 import type { UserContract } from "@/contracts/user-contract";
 import { UserAlreadyExistsError } from "./errors/user-already-exists-error";
 
-interface RegisterUserServiceRequest {
+interface RegisterUserUseCaseRequest {
   name: string;
   email: string;
   password: string;
 }
 
-interface RegisterUserServiceResponse {
+interface RegisterUserUseCaseResponse {
   user: UserContract;
 }
 
-export class RegisterUserService {
+export class RegisterUserUseCase {
   constructor(private usersRepository: UsersRepository) {}
 
-  async execute({ name, email, password }: RegisterUserServiceRequest): Promise<RegisterUserServiceResponse> {
+  async execute({ name, email, password }: RegisterUserUseCaseRequest): Promise<RegisterUserUseCaseResponse> {
     const userWithSameEmail = await this.usersRepository.findUserByEmail(email);
 
     if (userWithSameEmail) {
